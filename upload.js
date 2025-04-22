@@ -1,6 +1,3 @@
-// Load environment variables
-require('dotenv').config();
-
 import config from './config.js';
 const AWS = window.AWS;
 
@@ -15,8 +12,27 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-// Make functions global
-window.showFileName = function(input) {
+// Setup event listeners when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('fileInput');
+    const uploadButton = document.getElementById('uploadButton');
+
+    fileInput.addEventListener('change', e => {
+        showFileName(e.target);
+        uploadButton.disabled = !e.target.files.length;
+    });
+
+    uploadButton.addEventListener('click', uploadFile);
+});
+
+function toggleSpinner(show) {
+    const spinner = document.getElementById('spinner');
+    const uploadIcon = document.querySelector('.upload-button .fa-upload');
+    spinner.style.display = show ? 'inline-block' : 'none';
+    uploadIcon.style.display = show ? 'none' : 'inline-block';
+}
+
+export function showFileName(input) {
     const fileName = document.getElementById('fileName');
     if (input.files && input.files[0]) {
         fileName.textContent = input.files[0].name;
@@ -27,7 +43,7 @@ window.showFileName = function(input) {
     }
 }
 
-window.showNotification = function(message, success = true) {
+export function showNotification(message, success = true) {
     Toastify({
         text: message,
         duration: 3000,
@@ -42,9 +58,10 @@ window.showNotification = function(message, success = true) {
     }).showToast();
 }
 
-window.uploadFile = async function() {
+export async function uploadFile() {
     const fileInput = document.getElementById('fileInput');
     const progressBar = document.querySelector('.progress');
+    const uploadButton = document.getElementById('uploadButton');
     const file = fileInput.files[0];
 
     if (!file) {
@@ -52,6 +69,8 @@ window.uploadFile = async function() {
     }
 
     progressBar.style.width = '0%';
+    uploadButton.disabled = true;
+    toggleSpinner(true);
 
     try {
         const params = {
@@ -80,5 +99,8 @@ window.uploadFile = async function() {
         console.error(err);
         showNotification('Upload failed: ' + err.message, false);
         progressBar.style.width = '0%';
+    } finally {
+        uploadButton.disabled = false;
+        toggleSpinner(false);
     }
 }

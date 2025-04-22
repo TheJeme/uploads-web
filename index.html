@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Uploads</title>
-    <mtea charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Upload files to cloud.">
     <meta name="keywords" content="file upload">
@@ -23,12 +23,13 @@
                 <span class="upload-text">Choose a file or drag it here</span>
                 <span id="fileName" class="file-name"></span>
             </label>
-            <input type="file" id="fileInput" accept="*/*" onchange="showFileName(this)">
+            <input type="file" id="fileInput" accept="*/*">
         </div>
         <div class="progress-bar">
             <div class="progress"></div>
         </div>
-        <button onclick="uploadFile()">
+        <button id="uploadButton" class="upload-button" disabled>
+            <i class="fas fa-spinner fa-spin" id="spinner" style="display: none;"></i>
             <i class="fas fa-upload"></i>
             Upload
         </button>
