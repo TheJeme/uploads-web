@@ -60,13 +60,8 @@ export function showNotification(message, success = true) {
     }).showToast();
 }
 
-function getSignedUrl(key) {
-    const s3 = new AWS.S3();
-    return s3.getSignedUrl('getObject', {
-        Bucket: config.bucket,
-        Key: key,
-        Expires: 604800 // URL expires in 7 days
-    });
+function getFileUrl(key) {
+    return `https://${config.bucket}.s3.${config.region}.amazonaws.com/${key}`;
 }
 
 function getFileExtension(filename) {
@@ -143,7 +138,7 @@ export async function uploadFile() {
 
         await upload.promise();
         progressBar.style.width = '100%';
-        const fileUrl = getSignedUrl(key);
+        const fileUrl = getFileUrl(key);
         
         // Show result section
         const resultLink = uploadResult.querySelector('.result-link');
