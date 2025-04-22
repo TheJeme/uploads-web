@@ -1,0 +1,23 @@
+{
+  "CORSRules": [
+    {
+      "AllowedOrigins": [
+        "http://127.0.0.1:5500",
+        "https://u.jeme.app"
+      ],
+      "AllowedHeaders": [
+        "*"
+      ],
+      "AllowedMethods": [
+        "GET",
+        "HEAD",
+        "PUT",
+        "POST"
+      ],
+      "MaxAgeSeconds": 3000,
+      "ExposeHeaders": [
+        "ETag"
+      ]
+    }
+  ]
+}
