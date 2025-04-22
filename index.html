@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Uploads</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="upload-container">
+        <div class="upload-header">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h2>Uploads</h2>
+        </div>
+        <div class="upload-area">
+            <label for="fileInput" class="file-label">
+                <i class="fas fa-file-upload"></i>
+                <span class="upload-text">Choose a file or drag it here</span>
+                <span id="fileName" class="file-name"></span>
+            </label>
+            <input type="file" id="fileInput" accept="*/*" onchange="showFileName(this)">
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <button onclick="uploadFile()">
+            <i class="fas fa-upload"></i>
+            Upload
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aws-sdk@2.1410.0/dist/aws-sdk.min.js"></script>
+    <script type="module" src="upload.js"></script>
+</body>
+</html>
