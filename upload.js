@@ -4,10 +4,6 @@ const AWS = window.AWS;
 // AWS Configuration
 AWS.config.update({
     region: config.region,
-    credentials: new AWS.Credentials({
-        accessKeyId: config.credentials.accessKeyId,
-        secretAccessKey: config.credentials.secretKey
-    })
 });
 
 const s3 = new AWS.S3();
@@ -74,7 +70,7 @@ export async function uploadFile() {
 
     try {
         const params = {
-            Bucket: 'uploads-jeme',
+            Bucket: config.bucket,
             Key: file.name,
             ContentType: file.type
         };
